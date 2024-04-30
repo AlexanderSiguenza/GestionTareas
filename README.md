@@ -1,2 +1,2 @@
 # GestionTareas
-La aplicación tiene disponible el método de listar y el estudiante debe de realizar unos pequeños cambios para completar el CRUD. El objetivo es que el estudiante ponga en practica lo aprendido en el ciclo de estudios.
+La aplicación ofrece la funcionalidad de listar, el estudiante debe realizar algunas modificaciones mínimas para completar el CRUD. El propósito es que el estudiante ponga en práctica lo aprendido durante el ciclo de estudios.
