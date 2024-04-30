@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- EditText para el título de la tarea -->
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/title_hint"
+        android:padding="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:inputType="text"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <!-- EditText para la descripción de la tarea -->
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/description_hint"
+        android:padding="16dp"
+        android:layout_below="@id/titleEditText"
+        android:layout_marginBottom="8dp"
+        android:inputType="textMultiLine"
+        android:background="@android:color/white"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <!-- TextView para la fecha de vencimiento de la tarea -->
+    <TextView
+        android:id="@+id/dueDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/due_date_label"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_below="@id/descriptionEditText"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp" />
+
+    <!-- TextView para la prioridad de la tarea -->
+    <TextView
+        android:id="@+id/priorityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/priority_label"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:layout_below="@id/dueDateTextView"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Botón de guardar cambios -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save_button_label"
+        android:layout_below="@id/priorityTextView"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Botón de eliminar tarea -->
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_button_label"
+        android:layout_below="@id/priorityTextView"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"/>
+
+</RelativeLayout>

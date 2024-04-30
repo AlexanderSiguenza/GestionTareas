@@ -1,0 +1,26 @@
+<resources>
+    <!-- Cadenas de texto generales -->
+    <string name="app_name">Gestión de Tareas</string>
+    <string name="task_list_title">Lista de Tareas</string>
+    <string name="task_detail_title">Detalles de la Tarea</string>
+
+    <!-- Botones -->
+    <string name="save_button_label">Guardar</string>
+    <string name="delete_button_label">Eliminar</string>
+
+    <!-- Hints -->
+    <string name="title_hint">Título</string>
+    <string name="description_hint">Descripción</string>
+
+    <!-- Descripciones -->
+    <string name="add_task_button_description">Agregar nueva tarea</string>
+    <string name="due_date_label">Fecha de Vencimiento:</string>
+    <string name="priority_label">Prioridad:</string>
+
+    <!-- Mensajes -->
+    <string name="task_updated_message">Tarea actualizada exitosamente</string>
+    <string name="task_deleted_message">Tarea eliminada exitosamente</string>
+    <string name="invalid_task_id_error">Error con la tarea</string>
+    <string name="title_activity_task_detail">Detalle Tarea</string>
+
+</resources>
