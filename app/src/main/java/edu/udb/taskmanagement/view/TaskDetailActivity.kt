@@ -1,5 +1,7 @@
 package edu.udb.taskmanagement.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -9,6 +11,8 @@ import edu.udb.taskmanagement.model.Task
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import edu.udb.taskmanagement.model.TaskRepository
+import edu.udb.taskmanagement.network.ApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,12 +20,23 @@ import kotlinx.coroutines.withContext
 
 class TaskDetailActivity : AppCompatActivity() {
 
-    private lateinit var taskController: TaskController
+    private val taskController = TaskController(TaskRepository(ApiService.create()))
     private lateinit var currentTask: Task
 
+    private lateinit var titleEditText: EditText
+    private lateinit var descriptionEditText: EditText
+    private lateinit var dueDateTextView: TextView
+    private lateinit var priorityTextView: TextView
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_detail)
+
+        titleEditText = findViewById(R.id.titleEditText)
+        descriptionEditText = findViewById(R.id.descriptionEditText)
+        dueDateTextView = findViewById(R.id.dueDateTextView)
+        priorityTextView = findViewById(R.id.priorityTextView)
 
         val taskId = intent.getIntExtra("taskId", -1)
         if (taskId != -1) {
@@ -37,10 +52,6 @@ class TaskDetailActivity : AppCompatActivity() {
             updateTaskDetails()
         }
 
-        // Configurar el botón de eliminar para eliminar la tarea
-        findViewById<Button>(R.id.deleteButton).setOnClickListener {
-            deleteTask()
-        }
     }
 
     private fun loadTaskDetails(taskId: Int) {
@@ -53,10 +64,10 @@ class TaskDetailActivity : AppCompatActivity() {
     }
 
     private fun displayTaskDetails(task: Task) {
-        findViewById<TextView>(R.id.titleTextView).text = task.title
-        findViewById<TextView>(R.id.descriptionTextView).text = task.description
-        findViewById<TextView>(R.id.dueDateTextView).text = task.dueDate.toString()
-        findViewById<TextView>(R.id.priorityTextView).text = task.priority.toString()
+        titleEditText.setText(task.title)
+        descriptionEditText.setText(task.description)
+        dueDateTextView.text = task.dueDate.toString()
+        priorityTextView.text = task.priority.toString()
     }
 
     private fun updateTaskDetails() {
@@ -74,6 +85,9 @@ class TaskDetailActivity : AppCompatActivity() {
                 Toast.makeText(this@TaskDetailActivity, getString(R.string.task_updated_message), Toast.LENGTH_SHORT).show()
             }
         }
+
+        val intent = Intent(this, TaskListActivity::class.java)
+        startActivity(intent)
     }
 
     private fun deleteTask() {

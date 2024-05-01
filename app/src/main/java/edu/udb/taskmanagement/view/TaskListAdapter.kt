@@ -1,35 +1,49 @@
 package edu.udb.taskmanagement.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import edu.udb.taskmanagement.R
 import edu.udb.taskmanagement.model.Task
 
+class TaskListAdapter(context: Context, taskList: List<Task>) :
+    ArrayAdapter<Task>(context, 0, taskList) {
 
-class TaskListAdapter(var taskList: List<Task>) : RecyclerView.Adapter<TaskListAdapter.ViewHolder>() {
-
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val titleTextView: TextView = itemView.findViewById(R.id.titleTextView)
-        val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
-        val dueDateTextView: TextView = itemView.findViewById(R.id.dueDateTextView)
+    private class ViewHolder {
+        lateinit var idTextView: TextView
+        lateinit var titleTextView: TextView
+        lateinit var descriptionTextView: TextView
+        lateinit var dueDateTextView: TextView
+        lateinit var priorityTextView: TextView
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
-        return ViewHolder(view)
-    }
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        var convertView = convertView
+        val holder: ViewHolder
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val task = taskList[position]
-        holder.titleTextView.text = task.title
-        holder.descriptionTextView.text = task.description
-        holder.dueDateTextView.text = task.dueDate.toString()
-    }
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.item_task, parent, false)
+            holder = ViewHolder()
+            holder.idTextView = convertView.findViewById(R.id.idTextView)
+            holder.titleTextView = convertView.findViewById(R.id.titleTextView)
+            holder.descriptionTextView = convertView.findViewById(R.id.descriptionTextView)
+            holder.dueDateTextView = convertView.findViewById(R.id.dueDateTextView)
+            holder.priorityTextView = convertView.findViewById(R.id.priorityTextView)
+            convertView.tag = holder
+        } else {
+            holder = convertView.tag as ViewHolder
+        }
 
-    override fun getItemCount(): Int {
-        return taskList.size
+        val task = getItem(position)
+        holder.idTextView.text = task?.id.toString()
+        holder.titleTextView.text = task?.title
+        holder.descriptionTextView.text = task?.description
+        holder.dueDateTextView.text = task?.dueDate
+        holder.priorityTextView.text = task?.priority
+
+        return convertView!!
     }
 }

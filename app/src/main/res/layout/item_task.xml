@@ -5,47 +5,49 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- TextView para el título de la tarea -->
+    <!-- TextView para mostrar el id de la tarea -->
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID: "
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
+
+    <!-- TextView para mostrar el título de la tarea -->
     <TextView
         android:id="@+id/titleTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="8dp"/>
+        android:text="Título de la Tarea: "
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
 
-    <!-- TextView para la descripción de la tarea -->
+    <!-- TextView para mostrar la descripción de la tarea -->
     <TextView
         android:id="@+id/descriptionTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:layout_marginBottom="8dp"/>
+        android:text="Descripción: "
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
 
-    <!-- LinearLayout horizontal para mostrar la fecha de vencimiento y la prioridad de la tarea -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- TextView para mostrar la fecha de vencimiento de la tarea -->
+    <TextView
+        android:id="@+id/dueDateTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="Fecha de Vencimiento: "
+        android:textColor="@android:color/background_dark"
+        android:textSize="12sp" />
 
-        <!-- TextView para la fecha de vencimiento de la tarea -->
-        <TextView
-            android:id="@+id/dueDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"
-            android:layout_marginEnd="16dp"/>
-
-        <!-- TextView para la prioridad de la tarea -->
-        <TextView
-            android:id="@+id/priorityTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textColor="@android:color/black"/>
-    </LinearLayout>
+    <!-- TextView para mostrar la prioridad de la tarea -->
+    <TextView
+        android:id="@+id/priorityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prioridad: "
+        android:textColor="@android:color/background_dark"
+        android:textSize="14sp" />
 
 </LinearLayout>

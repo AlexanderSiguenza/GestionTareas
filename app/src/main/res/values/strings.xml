@@ -22,5 +22,7 @@
     <string name="task_deleted_message">Tarea eliminada exitosamente</string>
     <string name="invalid_task_id_error">Error con la tarea</string>
     <string name="title_activity_task_detail">Detalle Tarea</string>
+    <string name="title_label">Titulo :</string>
+    <string name="description_label">Descripcion :</string>
 
 </resources>
