@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import edu.udb.taskmanagement.R
 import edu.udb.taskmanagement.controller.TaskController
 import edu.udb.taskmanagement.model.Task
@@ -19,6 +22,7 @@ class TaskListActivity : AppCompatActivity() {
 
     private lateinit var taskListView: ListView
     private lateinit var taskListAdapter: TaskListAdapter
+    private lateinit var addTaskButton: FloatingActionButton
 
     private val taskController = TaskController(TaskRepository(ApiService.create()))
 
@@ -26,9 +30,15 @@ class TaskListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_list)
 
+        addTaskButton = findViewById(R.id.addTaskButton)
         taskListView = findViewById(R.id.taskListView)
         taskListAdapter = TaskListAdapter(this, mutableListOf())
         taskListView.adapter = taskListAdapter
+
+        addTaskButton.setOnClickListener {
+            showAddTaskDialog()
+            loadTasks()
+        }
 
         // Cargar las tareas al iniciar la actividad
         loadTasks()
@@ -156,4 +166,86 @@ class TaskListActivity : AppCompatActivity() {
         taskListAdapter.addAll(tasks)
         taskListAdapter.notifyDataSetChanged()
     }
+
+    private fun addTask(task: Task) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                taskController.addTask(task)
+                // Muestra un mensaje Toast de éxito en el hilo principal
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@TaskListActivity,
+                        "Tarea Agregada con Exito",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                loadTasks()
+            } catch (e: Exception) {
+                // Muestra un mensaje Toast de error en el hilo principal si ocurre un error
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        this@TaskListActivity,
+                        "Error Agregar Tarea: ${e.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+    }
+
+    private fun showAddTaskDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Agregar Nueva Tarea")
+
+        val inputLayout = LinearLayout(this)
+        inputLayout.orientation = LinearLayout.VERTICAL
+
+        val titleEditText = EditText(this)
+        titleEditText.hint = "Título"
+        inputLayout.addView(titleEditText)
+
+        val descriptionEditText = EditText(this)
+        descriptionEditText.hint = "Descripción"
+        inputLayout.addView(descriptionEditText)
+
+        val fechaEditText = EditText(this)
+        fechaEditText.hint = "Fecha Cierre"
+        inputLayout.addView(fechaEditText)
+
+        val prioridadEditText = EditText(this)
+        prioridadEditText.hint = "Prioridad"
+        inputLayout.addView(prioridadEditText)
+
+        builder.setView(inputLayout)
+
+        builder.setPositiveButton("Guardar") { dialog, _ ->
+            val title = titleEditText.text.toString()
+            val description = descriptionEditText.text.toString()
+            val fecha = fechaEditText.text.toString()
+            val prioridad = prioridadEditText.text.toString()
+
+            val task = Task(
+                id = 0,
+                title = title,
+                description = description,
+                dueDate = fecha,
+                priority = prioridad
+            )
+
+            addTask(task)
+            dialog.dismiss()
+            Toast.makeText(this, "Tarea guardada: $title", Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton("Cancelar") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
 }
+
+
+
+
